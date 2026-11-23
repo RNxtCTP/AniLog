@@ -137,11 +137,11 @@
           <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">ภาพรวมการติดตาม</h1>
           <p class="text-sm text-slate-400 mt-1">สรุปสถิติการดูอนิเมะ อ่านมังงะ และรายการที่กำลังติดตามล่าสุดของคุณ</p>
         </div>
-        <button id="btn-reset-demo" onclick="handleResetDemoData()" class="self-start sm:self-auto px-3 py-1.5 rounded-xl bg-[#1E293B] hover:bg-slate-700 border border-[#334155] text-xs text-slate-300 transition-colors flex items-center gap-1.5">
+        <button id="btn-clear-all" onclick="handleClearAllData()" class="self-start sm:self-auto px-3 py-1.5 rounded-xl bg-[#1E293B] hover:bg-rose-500/15 border border-[#334155] hover:border-rose-500/40 text-xs text-slate-300 hover:text-rose-300 transition-colors flex items-center gap-1.5">
           <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
           </svg>
-          <span id="btn-reset-demo-text">รีเซ็ตข้อมูลตัวอย่าง</span>
+          <span id="btn-clear-all-text">ล้างข้อมูลทั้งหมด</span>
         </button>
       </div>
 
@@ -767,136 +767,6 @@
       }
     };
 
-    // Sample initial Anime & Manga records for first-time visitors (diverse A-Z titles)
-    const DEMO_ITEMS = [
-      {
-        id: 'demo-1',
-        titleEn: 'Frieren: Beyond Journey\'s End',
-        titleTh: 'คำอธิษฐานในวันที่จากลา FRIEREN',
-        type: 'anime',
-        status: 'completed',
-        progress: 28,
-        total: 28,
-        score: 9.5,
-        genres: ['แฟนตาซี', 'ผจญภัย', 'ดราม่า'],
-        theme: 'sky',
-        note: 'งานภาพและเพลงประกอบละมุนมาก เล่าเรื่องความทรงจำและเวลาได้ซึ้งกินใจทุกตอน',
-        updatedAt: Date.now() - 1000 * 60 * 60 * 2
-      },
-      {
-        id: 'demo-2',
-        titleEn: 'Attack on Titan',
-        titleTh: 'ผ่าพิภพไททัน',
-        type: 'anime',
-        status: 'completed',
-        progress: 89,
-        total: 89,
-        score: 10,
-        genres: ['แอ็กชัน', 'ดราม่า', 'ระทึกขวัญ'],
-        theme: 'rose',
-        note: 'เนื้อเรื่องเข้มข้นหักมุมตลอดทั้งเรื่อง งานภาพและดนตรีประกอบยอดเยี่ยมระดับตำนาน',
-        updatedAt: Date.now() - 1000 * 60 * 60 * 5
-      },
-      {
-        id: 'demo-3',
-        titleEn: 'Berserk',
-        titleTh: 'เบอร์เซิร์ก',
-        type: 'manga',
-        status: 'active',
-        progress: 185,
-        total: 376,
-        score: 9.5,
-        genres: ['แอ็กชัน', 'แฟนตาซี', 'ดราม่า'],
-        theme: 'slate',
-        note: 'ลายเส้นละเอียดระดับงานศิลปะ เนื้อเรื่องดาร์กแฟนตาซีที่ลึกซึ้งมาก',
-        updatedAt: Date.now() - 1000 * 60 * 35
-      },
-      {
-        id: 'demo-4',
-        titleEn: 'Chainsaw Man',
-        titleTh: 'เชนซอว์แมน',
-        type: 'anime',
-        status: 'active',
-        progress: 7,
-        total: 12,
-        score: 8.5,
-        genres: ['แอ็กชัน', 'เหนือธรรมชาติ', 'ระทึกขวัญ'],
-        theme: 'amber',
-        note: 'จังหวะการเล่าเรื่องเหมือนภาพยนตร์ ฉากต่อสู้ดุเดือดและเพลงปิดเปลี่ยนทุกตอน',
-        updatedAt: Date.now() - 1000 * 60 * 15
-      },
-      {
-        id: 'demo-5',
-        titleEn: 'Jujutsu Kaisen',
-        titleTh: 'มหาเวทย์ผนึกมาร',
-        type: 'anime',
-        status: 'active',
-        progress: 34,
-        total: 47,
-        score: 9.0,
-        genres: ['แอ็กชัน', 'เหนือธรรมชาติ', 'แฟนตาซี'],
-        theme: 'indigo',
-        note: 'ภาคชิบูย่าเดือดมาก แอนิเมชันคิวบู๊ลื่นไหลสุดๆ',
-        updatedAt: Date.now() - 1000 * 60 * 10
-      },
-      {
-        id: 'demo-6',
-        titleEn: 'Monster',
-        titleTh: 'คนปีศาจ',
-        type: 'manga',
-        status: 'on_hold',
-        progress: 54,
-        total: 162,
-        score: 9.0,
-        genres: ['สืบสวน', 'ระทึกขวัญ', 'ดราม่า'],
-        theme: 'violet',
-        note: 'เนื้อเรื่องสืบสวนจิตวิทยาเข้มข้นมาก พักไว้ก่อนเดี๋ยวกลับมาอ่านรวดเดียว',
-        updatedAt: Date.now() - 1000 * 60 * 60 * 24
-      },
-      {
-        id: 'demo-7',
-        titleEn: 'One Piece',
-        titleTh: 'วันพีซ',
-        type: 'manga',
-        status: 'active',
-        progress: 1092,
-        total: 1130,
-        score: 9.5,
-        genres: ['ผจญภัย', 'แอ็กชัน', 'แฟนตาซี', 'คอมเมดี้'],
-        theme: 'cyan',
-        note: 'การผจญภัยที่ยิ่งใหญ่ที่สุด ภาคเอ็กเฮดเฉลยปมสำคัญเพียบ!',
-        updatedAt: Date.now() - 1000 * 60 * 5
-      },
-      {
-        id: 'demo-8',
-        titleEn: 'Vagabond',
-        titleTh: 'วากาบอนด์',
-        type: 'manga',
-        status: 'active',
-        progress: 142,
-        total: 327,
-        score: 9.5,
-        genres: ['แอ็กชัน', 'ดราม่า', 'ผจญภัย'],
-        theme: 'emerald',
-        note: 'ลายเส้นพู่กันระดับตำนาน ปรัชญาชีวิตและการเติบโตของมุซาชิยอดเยี่ยมมาก',
-        updatedAt: Date.now() - 1000 * 60 * 50
-      },
-      {
-        id: 'demo-9',
-        titleEn: 'Spy x Family',
-        titleTh: 'สปาย x แฟมิลี',
-        type: 'anime',
-        status: 'planned',
-        progress: 0,
-        total: 25,
-        score: 0,
-        genres: ['คอมเมดี้', 'แอ็กชัน', 'ชีวิตประจำวัน'],
-        theme: 'emerald',
-        note: 'เตรียมไว้ดูคลายเครียดช่วงสุดสัปดาห์',
-        updatedAt: Date.now() - 1000 * 60 * 60 * 72
-      }
-    ];
-
     // ==================== APPLICATION STATE ====================
     let state = {
       items: [],
@@ -926,15 +796,20 @@
         if (raw) {
           const parsed = JSON.parse(raw);
           if (Array.isArray(parsed)) {
-            state.items = parsed;
+            // Remove any leftover demo items while keeping user-added items intact
+            const cleaned = parsed.filter(item => !(item && typeof item.id === 'string' && item.id.startsWith('demo-')));
+            state.items = cleaned;
+            if (cleaned.length !== parsed.length) {
+              saveItems();
+            }
             return;
           }
         }
       } catch (err) {
         console.error('Failed to load items from localStorage:', err);
       }
-      // First-time load: initialize with sample data
-      state.items = JSON.parse(JSON.stringify(DEMO_ITEMS));
+      // First-time load: start with a clean empty list
+      state.items = [];
       saveItems();
     }
 
@@ -2059,34 +1934,39 @@
       showToast(`เพิ่ม "${newItem.titleEn}" เข้าสู่รายการเรียบร้อยแล้ว`, 'success');
     }
 
-    // ==================== RESET DEMO DATA (INLINE 2-STEP CONFIRM) ====================
+    // ==================== CLEAR ALL DATA (INLINE 2-STEP CONFIRM) ====================
 
     let resetTimer = null;
-    function handleResetDemoData() {
-      const btnText = document.getElementById('btn-reset-demo-text');
-      const btn = document.getElementById('btn-reset-demo');
+    function handleClearAllData() {
+      if (state.items.length === 0) {
+        showToast('ไม่มีรายการให้ล้างในขณะนี้', 'info');
+        return;
+      }
+
+      const btnText = document.getElementById('btn-clear-all-text');
+      const btn = document.getElementById('btn-clear-all');
 
       if (!state.resetArmed) {
         state.resetArmed = true;
-        btnText.textContent = 'คลิกอีกครั้งเพื่อยืนยันรีเซ็ต';
-        btn.classList.add('border-amber-500/60', 'text-amber-300');
+        btnText.textContent = 'คลิกอีกครั้งเพื่อยืนยันล้างทั้งหมด';
+        btn.classList.add('border-rose-500/60', 'text-rose-300');
         resetTimer = setTimeout(() => {
           state.resetArmed = false;
-          btnText.textContent = 'รีเซ็ตข้อมูลตัวอย่าง';
-          btn.classList.remove('border-amber-500/60', 'text-amber-300');
+          btnText.textContent = 'ล้างข้อมูลทั้งหมด';
+          btn.classList.remove('border-rose-500/60', 'text-rose-300');
         }, 3500);
         return;
       }
 
       clearTimeout(resetTimer);
       state.resetArmed = false;
-      btnText.textContent = 'รีเซ็ตข้อมูลตัวอย่าง';
-      btn.classList.remove('border-amber-500/60', 'text-amber-300');
+      btnText.textContent = 'ล้างข้อมูลทั้งหมด';
+      btn.classList.remove('border-rose-500/60', 'text-rose-300');
 
-      state.items = JSON.parse(JSON.stringify(DEMO_ITEMS));
+      state.items = [];
       saveItems();
       renderAll();
-      showToast('รีเซ็ตข้อมูลตัวอย่างเรียบร้อยแล้ว', 'info');
+      showToast('ล้างรายการทั้งหมดเรียบร้อยแล้ว', 'info');
     }
 
     // ==================== MASTER RENDER & INITIALIZATION ====================
